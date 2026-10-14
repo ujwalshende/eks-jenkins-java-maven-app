@@ -50,8 +50,8 @@ pipeline{
             steps {
                 script {
                     echo "deploying the app..."
-                    sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f -'
-                    sh 'envsubst < kubernetes/service.yaml | kubectl apply -f -'
+                    sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f '
+                    sh 'envsubst < kubernetes/service.yaml | kubectl apply -f '
                 }
             } 
         }      
@@ -64,10 +64,10 @@ pipeline{
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
-                        sh "git remote set-url origin https://${USER}:${GITHUB_TOKEN}@github.com/ujwalshende/jenkins-demo.git"
+                        sh "git remote set-url origin https://${USER}:${GITHUB_TOKEN}@github.com/ujwalshende/eks-jenkins-java-maven-app.git"
                         sh "git add ."
                         sh 'git commit -m "ci: version bump"'
-                        sh "git push origin HEAD:bump-version"
+                        sh "git push origin HEAD:deploy-on-k8s"
                     }
                 }
             }
